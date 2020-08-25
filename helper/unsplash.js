@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-let config = require('./config.js');
+let config = require('../config.js');
 let token = config.TOKEN;
 
 let getUnsplashImages = () => {

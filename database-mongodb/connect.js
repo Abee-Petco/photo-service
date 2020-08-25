@@ -5,6 +5,7 @@ function connect() {
   const mongoUri = config.mongoUri;
   return mongoose.connect(mongoUri, {
     useNewUrlParser: true,
+    useUnifiedTopology: true
   });
 }
 
