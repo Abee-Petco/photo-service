@@ -12,13 +12,17 @@ beforeAll(() => {
     .then(() => {
       let imageDataForSingleItem =
       {
-        itemId: '100',
-        itemImages: [{small: 'https://images.unsplash.com/photo-1?w=54',
-                      medium: 'https://images.unsplash.com/photo-1?w=400',
-                      large: 'https://images.unsplash.com/photo-1?w=1000'},
-                      {small: 'https://images.unsplash.com/photo-2?w=54',
-                      medium: 'https://images.unsplash.com/photo-2?w=400',
-                      large: 'https://images.unsplash.com/photo-2?w=1000'}]
+        itemId: '1000',
+        itemImages: [{
+          small: 'https://images.unsplash.com/photo-1?w=54',
+          medium: 'https://images.unsplash.com/photo-1?w=400',
+          large: 'https://images.unsplash.com/photo-1?w=1000'
+        },
+        {
+          small: 'https://images.unsplash.com/photo-2?w=54',
+          medium: 'https://images.unsplash.com/photo-2?w=400',
+          large: 'https://images.unsplash.com/photo-2?w=1000'
+        }]
       }
       return Images.insertRecords([imageDataForSingleItem])
     })
@@ -28,11 +32,11 @@ afterAll(() => {
   return mongoose.connection.close();
 })
 
-test('successfully retrieves image data for item 100', () => {
-  return request(app).get('/itemImages/100')
+test('successfully retrieves image data for item 1000', () => {
+  return request(app).get('/itemImages/1000')
     .then((response) => {
       expect(response.status).toBe(200);
-      expect(response.body.itemId).toBe('100');
+      expect(response.body.itemId).toBe('1000');
       expect(response.body.itemImages.length).toBe(2);
       expect(response.body.itemImages[0].small).toBe('https://images.unsplash.com/photo-1?w=54');
       expect(response.body.itemImages[0].medium).toBe('https://images.unsplash.com/photo-1?w=400');
@@ -43,8 +47,8 @@ test('successfully retrieves image data for item 100', () => {
     })
 });
 
-test('successfully retrieves main image url for item 100', () => {
-  return request(app).get('/itemImages/100/mainImage')
+test('successfully retrieves main image url for item 1000', () => {
+  return request(app).get('/itemImages/1000/mainImage')
     .then((response) => {
       expect(response.status).toBe(200);
       expect(response.body.image).toBe('https://images.unsplash.com/photo-1?w=54')
@@ -62,5 +66,15 @@ test('returns 404 status code if main image not found', () => {
   return request(app).get('/itemImages/200/mainImage')
     .then((response) => {
       expect(response.status).toBe(404);
+    })
+});
+
+test('successfully removes image data for item 1000', () => {
+  return request(app).delete('/itemImages/1000')
+    .then(() => {
+      request(app).get('/itemImages/1000')
+        .then((response) => {
+          expect(response.status).toBe(404);
+        })
     })
 });
