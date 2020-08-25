@@ -29,8 +29,8 @@ function deleteAll() {
   return Image.remove({});
 }
 
-function updateOne() {
-  return Image.findByIdAndUpdate({})
+function updateOne(filter, update) {
+  return Image.findOneAndUpdate(filter, update)
 }
 
 module.exports = Image;
