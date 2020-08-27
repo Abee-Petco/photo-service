@@ -8,7 +8,8 @@
     "start": "nodemon server/start.js",
     "client": "webpack -d --watch",
     "build_client": "webpack",
-    "seed": "node database-mongodb/seed.js"
+    "seed": "node database-mongodb/seed.js",
+    "generateData": "node helper/dataGeneration.js"
   },
   "author": "",
   "license": "ISC",
