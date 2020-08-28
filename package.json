@@ -8,13 +8,15 @@
     "start": "nodemon server/start.js",
     "client": "webpack -d --watch",
     "build_client": "webpack",
-    "seed": "node database-mongodb/seed.js"
+    "seed": "node database-mongodb/seed.js",
+    "generateData": "node helper/dataGeneration.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.2",
     "cors": "^2.8.5",
+    "csv-write-stream": "^2.0.0",
     "express": "^4.17.1",
     "jquery": "^3.5.1",
     "mongoose": "^5.9.18",
