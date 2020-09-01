@@ -1,0 +1,5 @@
+CREATE TABLE images (
+  item_id INTEGER PRIMARY KEY,
+  pictureId1 INTEGER NOT NULL,
+  pictureId2 INTEGER NOT NULL
+ );
