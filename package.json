@@ -9,7 +9,8 @@
     "client": "webpack -d --watch",
     "build_client": "webpack",
     "seed": "node database-mongodb/seed.js",
-    "generateData": "node helper/dataGeneration.js"
+    "generateData": "node helper/dataGeneration.js",
+    "generatePostgreSQL": "node database-postgresql/seedPostgres.js"
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +22,7 @@
     "jquery": "^3.5.1",
     "mongoose": "^5.9.18",
     "morgan": "^1.10.0",
+    "pg": "^8.3.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
