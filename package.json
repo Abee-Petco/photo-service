@@ -9,8 +9,7 @@
     "client": "webpack -d --watch",
     "build_client": "webpack",
     "seed": "node database-mongodb/seed.js",
-    "generateData": "node helper/dataGeneration.js",
-    "generatePostgreSQL": "node database-postgresql/seedPostgres.js"
+    "generateData": "node helper/dataGeneration.js"
   },
   "author": "",
   "license": "ISC",
