@@ -25,8 +25,8 @@ function writeTenMillionPhotoGalleries(writer, encoding, callback) {
       if (pictureId > 2000) {
         pictureId = 1
       }
-      // Backticks didn't work, so the data needs to be formed as a string this way
-      // Double quotes are needed because of the commas in the object
+      // The structure is changed in an effort to reduce repeating, as well as increase speed
+      // so only the pictureId is needed and it can be stuck to the end of the image url
       pictureId1 = pictureId
       pictureId2 = pictureId + 1
 
