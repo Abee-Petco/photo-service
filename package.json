@@ -8,8 +8,9 @@
     "start": "nodemon server/start.js",
     "client": "webpack -d --watch",
     "build_client": "webpack",
-    "seed": "node database-mongodb/seed.js",
-    "generateData": "node helper/dataGeneration.js"
+    "seed": "node database-mongo/seed.js",
+    "generateData": "node helper/dataGeneration.js",
+    "seedMongo": "mongoimport --db=images --collection=images --type=csv --headerline --file=images.csv"
   },
   "author": "",
   "license": "ISC",
