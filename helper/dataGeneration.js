@@ -2,6 +2,7 @@ const fs = require('fs');
 // const csvWriter = require('csv-write-stream');
 // var writer = csvWriter()
 const writeItems = fs.createWriteStream('images.csv');
+const writeSizeUrls = fs.createWriteStream('sizeUrls.csv');
 
 let globalCounter = 99
 let numberOfEntries = 10000100
@@ -12,7 +13,8 @@ let pictureId = 1
 
 console.time('Time to Generate Data: ');
 
-writeItems.write('itemId,pictureId1,pictureId2\n', 'utf8');
+writeItems.write('itemId,pictureId1,pictureId2,smallPic,mediumPic,largePic\n', 'utf8');
+writeSizeUrls.write('id,size,sizeUrl\n', 'utf-8');
 
 
 function writeTenMillionPhotoGalleries(writer, encoding, callback) {
@@ -29,8 +31,11 @@ function writeTenMillionPhotoGalleries(writer, encoding, callback) {
       // so only the pictureId is needed and it can be stuck to the end of the image url
       pictureId1 = pictureId
       pictureId2 = pictureId + 1
+      smallPic = true
+      medPic = true
+      largePic = true
 
-      let data = `${itemId},${pictureId1},${pictureId2}\n`;
+      let data = `${itemId},${pictureId1},${pictureId2},${smallPic},${medPic},${largePic}\n`;
       if (globalCounter === numberOfEntries) {
         writer.write(data, encoding, callback);
       } else {
@@ -39,14 +44,36 @@ function writeTenMillionPhotoGalleries(writer, encoding, callback) {
       }
     }
     if (globalCounter < numberOfEntries) {
-      // console.log('DRAINED!', globalCounter)
       writer.once('drain', write);
     }
   }
   write()
 }
 
+function writeThreeSizeUrls(writer, encoding, callback) {
+  let sizeObj = {
+    'small': 'https://loremflickr.com/54/54?lock=',
+    'medium': 'https://loremflickr.com/400/400?lock=',
+    'large': 'https://loremflickr.com/1000/1000?lock='
+  }
+  for (size in sizeObj) {
+    id = Object.keys(sizeObj).indexOf(size) + 1
+    size = size
+    size_url = sizeObj[size]
+    let data = `${id},${size},${size_url}\n`;
+    if (id === Object.keys(sizeObj).length) {
+      writer.write(data, encoding, callback)
+    } else {
+      writer.write(data, encoding)
+    }
+  }
+}
+
 writeTenMillionPhotoGalleries(writeItems, 'utf-8', () => {
   console.timeEnd('Time to Generate Data: ');
   writeItems.end();
+});
+
+writeThreeSizeUrls(writeSizeUrls, 'utf-8', () => {
+  writeSizeUrls.end();
 });
