@@ -1,3 +1,5 @@
+//NOTE, THIS SEED SCRIPT DOES NOT RUN. TO SEED MONGODB, USE THE COMMANY LINE FUNCTION SEEN IN PACKAGE.JSON
+
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/images', { useNewUrlParser: true, useUnifiedTopology: true })
 
@@ -11,15 +13,25 @@ db.on('error', function (err) {
 db.once('open', function () {
   console.log('mongoose connected successfully');
 })
-  .then(() => { seedMongo() })
+  // .then(() => { seedMongo() })
   .catch((err) => console.log('error with seeding mongo database: ', err))
 
 
 
 var imageSchema = mongoose.Schema({
   itemId: { type: Number, unique: true },
-  pictureId1: Number,
-  pictureId2: Number
+  itemImages: [
+    {
+      small: String,
+      medium: String,
+      large: String
+    },
+    {
+      small: String,
+      medium: String,
+      large: String
+    }
+  ]
 })
 
 var Image = mongoose.model('Image', imageSchema);
@@ -27,18 +39,28 @@ var Image = mongoose.model('Image', imageSchema);
 let seedMongo = () => {
   console.time('Time to seed Mongo Database: ')
   let counter = 99
-  let totalEntries = 10000100
+  let totalEntries = 10100
   let pictureId = 1
   while (counter < totalEntries) {
     counter++
     var newImage = new Image({
       itemId: counter,
-      pictureId1: pictureId,
-      pictureId2: pictureId + 1
+      itemImages: [
+        {
+          small: 'https://loremflickr.com/54/54?lock=' + pictureId,
+          medium: 'https://loremflickr.com/400/400?lock=' + pictureId,
+          large: 'https://loremflickr.com/1000/1000?lock=' + pictureId
+        },
+        {
+          small: 'https://loremflickr.com/54/54?lock=' + pictureId + 1,
+          medium: 'https://loremflickr.com/400/400?lock=' + pictureId + 1,
+          large: 'https://loremflickr.com/1000/1000?lock=' + pictureId + 1
+        }
+      ]
     })
     newImage.save()
       .then(() => {
-        if (i === totalEntries - 1) {
+        if (counter === totalEntries) {
           console.timeEnd('Time to seed Mongo Database: ')
           db.close()
         }
@@ -51,4 +73,4 @@ let seedMongo = () => {
   }
 }
 
-// db.dropDatabase()
+db.dropDatabase()
