@@ -3,3 +3,4 @@ config.js
 bundle.js
 images.csv
 sizeUrls.csv
+mongoImages.csv

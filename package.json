@@ -9,8 +9,8 @@
     "client": "webpack -d --watch",
     "build_client": "webpack",
     "seed": "node database-mongo/seed.js",
-    "generateData": "node helper/dataGeneration.js",
-    "seedMongo": "mongoimport --db=images --collection=images --type=csv --headerline --file=images.csv && mongoimport --db=images --collection=urls --type=csv --headerline --file=sizeurls.csv"
+    "generateData": "node helper/dataGeneration-Mongo.js",
+    "seedMongo": "mongoimport --db=images --collection=urls --type=csv --headerline --file=mongoImages.csv"
   },
   "author": "",
   "license": "ISC",

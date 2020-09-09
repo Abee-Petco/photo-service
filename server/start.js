@@ -1,14 +1,11 @@
 const morgan = require('morgan');
 const app = require('./index.js');
-const connect = require('../database-mongodb/connect.js');
+const db = require('../database-mongo/index.js');
 const PORT = 3003;
 app.use(morgan('dev'));
 
 
-connect()
-  .then(() => {
-    console.log('Connected to database');
-  })
+db
 
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
