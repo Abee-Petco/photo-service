@@ -20,7 +20,7 @@ function writeTenMillionPhotoGalleries(writer, encoding, callback) {
       globalCounter++
       itemId = globalCounter
       // This just loops the 1000 pictures through the 10M created records
-      if (pictureId > 1000) {
+      if (pictureId > 2000) {
         pictureId = 1
       }
       pic1Small = 'https://loremflickr.com/54/54?lock=' + pictureId

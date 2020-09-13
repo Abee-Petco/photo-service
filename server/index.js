@@ -1,8 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const Images = require('../database-mongodb/Images.js');
-const connect = require('../database-mongodb/connect.js')
+const Images = require('../database-mongo/index.js');
 const cors = require('cors');
+const PORT = 3003;
+
 const app = express();
 app.use(cors());
 
@@ -12,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/../react-client/dist'));
 
 
-app.get('/itemImages/:itemId', function (req, res) {
+app.get('/images/urls/:itemId', function (req, res) {
   // console.log(req.params.itemId);
   Images.fetchItemImages(req.params.itemId)
     .then((data) => {
@@ -27,7 +28,7 @@ app.get('/itemImages/:itemId', function (req, res) {
     })
 })
 
-app.get('/itemImages/:itemId/mainImage', function (req, res) {
+app.get('/images/urls/:itemId', function (req, res) {
   // console.log('req.params: ', req.params);
   Images.fetchItemImages(req.params.itemId)
     .then((data) => {
@@ -43,7 +44,7 @@ app.get('/itemImages/:itemId/mainImage', function (req, res) {
     })
 })
 
-app.post('/itemImages/:itemId', (req, res) => {
+app.post('/images/urls/:itemId', (req, res) => {
   // console.log('this is the req.body: ', req.body)
   Images.insertRecords(req.body)
     .then((data) => {
@@ -57,7 +58,7 @@ app.post('/itemImages/:itemId', (req, res) => {
 })
 
 
-app.put('/itemImages/:itemId', (req, res) => {
+app.put('/images/urls/:itemId', (req, res) => {
   console.log('req.params.itemId: ', req.params.itemId)
   Images.updateOne({ itemId: req.params.itemId }, req.body)
     .then((data) => {
@@ -89,5 +90,10 @@ app.delete('/itemImages/:itemId', (req, res) => {
       console.log('error with patch request: ', err);
     })
 })
+
+
+app.listen(PORT, () => {
+  console.log(`listening on port ${PORT}`);
+});
 
 module.exports = app

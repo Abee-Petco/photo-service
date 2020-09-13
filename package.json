@@ -5,10 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --runInBand",
-    "start": "nodemon server/start.js",
+    "start": "nodemon server/index.js",
     "client": "webpack -d --watch",
     "build_client": "webpack",
-    "seed": "node database-mongo/seed.js",
     "generateData": "node helper/dataGeneration-Mongo.js",
     "seedMongo": "mongoimport --db=images --collection=urls --type=csv --headerline --file=mongoImages.csv"
   },
