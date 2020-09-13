@@ -1,4 +1,4 @@
-//NOTE, THIS SEED SCRIPT DOES NOT RUN. TO SEED MONGODB, USE THE COMMANY LINE FUNCTION SEEN IN PACKAGE.JSON
+//NOTE, THIS SEED SCRIPT DOES NOT RUN. TO SEED MONGODB, USE THE COMMAND LINE FUNCTION SEEN IN PACKAGE.JSON
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/images', { useNewUrlParser: true, useUnifiedTopology: true })

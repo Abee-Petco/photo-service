@@ -1,6 +1,4 @@
 const fs = require('fs');
-// const csvWriter = require('csv-write-stream');
-// var writer = csvWriter()
 const writeItems = fs.createWriteStream('images.csv');
 const writeSizeUrls = fs.createWriteStream('sizeUrls.csv');
 
