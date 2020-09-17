@@ -1,41 +1,41 @@
 const fs = require('fs');
-const writeItems = fs.createWriteStream('mongoImages.csv');
+const { images } = require('../cloudinary.js');
+const writeItems = fs.createWriteStream('mongoImages.tsv');
 
 let globalCounter = 99
 let numberOfEntries = 10000100
-let pictureId = 1
+let index = 0
 
-// Items 1-2000 in loremflickr are cat photos, so looping through them with a simple counter
-// will create 2000 unique animal images
 
 console.time('Time to Generate Data: ');
 
-writeItems.write('itemId,pic1Small,pic1Med,pic1Large,pic2Small,pic2Med,pic2Large,\n', 'utf8');
+writeItems.write('itemId\tpic1Small\tpic1Med\tpic1Large\tpic2Small\tpic2Med\tpic2Large\t\n', 'utf8');
 
 
 function writeTenMillionPhotoGalleries(writer, encoding, callback) {
   function write() {
     let ok = true;
     while (globalCounter < numberOfEntries && ok) {
-      globalCounter++
-      itemId = globalCounter
-      // This just loops the 1000 pictures through the 10M created records
-      if (pictureId > 2000) {
-        pictureId = 1
+      if (index === images.length - 2) {
+        index = 0
       }
-      pic1Small = 'https://loremflickr.com/54/54?lock=' + pictureId
-      pic1Med = 'https://loremflickr.com/400/400?lock=' + pictureId
-      pic1Large = 'https://loremflickr.com/1000/1000?lock=' + pictureId
-      pic2Small = 'https://loremflickr.com/54/54?lock=' + (pictureId + 1)
-      pic2Med = 'https://loremflickr.com/400/400?lock=' + (pictureId + 1)
-      pic2Large = 'https://loremflickr.com/1000/1000?lock=' + (pictureId + 1)
+      globalCounter++
+      // The itemId is just the global counter
+      itemId = globalCounter
+      pic1Small = "https://res.cloudinary.com/dq3iywusm/image/upload/w_54,h_54/" + images[index].public_id + "." + images[index].format
+      pic1Med = "https://res.cloudinary.com/dq3iywusm/image/upload/w_400,h_400/" + images[index].public_id + "." + images[index].format
+      pic1Large = "https://res.cloudinary.com/dq3iywusm/image/upload/w_1000,h_1000/" + images[index].public_id + "." + images[index].format
+      pic2Small = "https://res.cloudinary.com/dq3iywusm/image/upload/w_54,h_54/" + images[index + 1].public_id + "." + images[index + 1].format
+      pic2Med = "https://res.cloudinary.com/dq3iywusm/image/upload/w_400,h_400/" + images[index + 1].public_id + "." + images[index + 1].format
+      pic2Large = "https://res.cloudinary.com/dq3iywusm/image/upload/w_1000,h_1000/" + images[index + 1].public_id + "." + images[index + 1].format
 
-      let data = `${itemId},${pic1Small},${pic1Med},${pic1Large},${pic2Small},${pic2Med},${pic2Large}\n`;
+      let data = `${itemId}\t${pic1Small}\t${pic1Med}\t${pic1Large}\t${pic2Small}\t${pic2Med}\t${pic2Large}\n`;
+      // This just loops the 1000 pictures through the 10M created records
       if (globalCounter === numberOfEntries) {
         writer.write(data, encoding, callback);
       } else {
         ok = writer.write(data, encoding);
-        pictureId += 2
+        index += 2
       }
     }
     if (globalCounter < numberOfEntries) {
