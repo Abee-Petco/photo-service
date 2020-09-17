@@ -3,4 +3,5 @@ config.js
 bundle.js
 images.csv
 sizeUrls.csv
-mongoImages.csv
+mongoImages.tsv
+cloudinary.js

@@ -9,7 +9,7 @@
     "client": "webpack -d --watch",
     "build_client": "webpack",
     "generateData": "node helper/dataGeneration-Mongo.js",
-    "seedMongo": "mongoimport --db=images --collection=urls --type=csv --headerline --file=mongoImages.csv"
+    "seedMongo": "mongoimport --db=images --collection=urls --type=tsv --headerline --file=mongoImages.tsv"
   },
   "author": "",
   "license": "ISC",
