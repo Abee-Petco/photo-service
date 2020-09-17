@@ -16,7 +16,21 @@ class App extends React.Component {
   componentDidMount () {
     // console.log('Item id', this.props.itemId)
     axios.get(`/images/urls/${this.props.itemId}`)
-    .then(() => console.log('step2'))
+    .then((data) => {
+      let picture = data.data.data[0]
+      console.log('data: ', picture)
+      this.setState({
+      itemImages: [{
+        "small": picture.pic1Small,
+        "medium": picture.pic1Med,
+        "large": picture.pic1Large
+      },
+      {
+        "small": picture.pic2Small,
+        "medium": picture.pic2Med,
+        "large": picture.pic2Large
+      }]
+    })})
     .catch(err => console.log('error with axios get: ', err))
     // $.ajax ({
     //   url: config.itemImages + this.props.itemId,
