@@ -11,5 +11,6 @@ db.once('open', function () {
   console.log('mongoose connected successfully');
 });
 
+// db.dropDatabase()
 
 module.exports.db = db;
