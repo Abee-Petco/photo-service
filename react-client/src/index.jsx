@@ -18,7 +18,6 @@ class App extends React.Component {
     axios.get(`/images/urls/${this.props.itemId}`)
     .then((data) => {
       let picture = data.data.data[0]
-      console.log('data: ', picture)
       this.setState({
       itemImages: [{
         "small": picture.pic1Small,
@@ -32,19 +31,6 @@ class App extends React.Component {
       }]
     })})
     .catch(err => console.log('error with axios get: ', err))
-    // $.ajax ({
-    //   url: config.itemImages + this.props.itemId,
-    //   type: "get",
-    //   success: (data) => {
-    //     console.log('Data returned form the server', data.itemImages);
-    //     this.setState({
-    //       itemImages: data.itemImages
-    //     })
-    //   },
-    //   error: (error) => {
-    //     console.log('Error with componentDidMount: ', error);
-    //   }
-    // })
   }
 
   render() {
