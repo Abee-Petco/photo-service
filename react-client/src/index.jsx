@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Gallery from './Gallery.jsx';
 import $ from 'jquery';
 import config from '../../config.js'
+import axios from 'axios'
 
 class App extends React.Component {
   constructor(props) {
@@ -13,20 +14,23 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    console.log('Item id', this.props.itemId)
-    $.ajax ({
-      url: config.itemImages + this.props.itemId,
-      type: "get",
-      success: (data) => {
-        console.log('Data returned form the server', data.itemImages);
-        this.setState({
-          itemImages: data.itemImages
-        })
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    })
+    // console.log('Item id', this.props.itemId)
+    axios.get(`/images/urls/${this.props.itemId}`)
+    .then(() => console.log('step2'))
+    .catch(err => console.log('error with axios get: ', err))
+    // $.ajax ({
+    //   url: config.itemImages + this.props.itemId,
+    //   type: "get",
+    //   success: (data) => {
+    //     console.log('Data returned form the server', data.itemImages);
+    //     this.setState({
+    //       itemImages: data.itemImages
+    //     })
+    //   },
+    //   error: (error) => {
+    //     console.log('Error with componentDidMount: ', error);
+    //   }
+    // })
   }
 
   render() {
