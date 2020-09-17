@@ -14,33 +14,19 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 
 
 app.get('/images/urls/:itemId', function (req, res) {
-  // console.log(req.params.itemId);
-  Images.fetchItemImages(req.params.itemId)
+  console.log('req.params: ', req.params.itemId);
+  Images.fetchItemImages(Number(req.params.itemId))
     .then((data) => {
+      console.log('data: ', data)
       if (data) {
-        res.status(200).send(data);
+        res.status(200).send({ data });
       } else {
         res.sendStatus(404);
       }
     })
     .catch((err) => {
-      res.status(500).send(err);
-    })
-})
-
-app.get('/images/urls/:itemId', function (req, res) {
-  // console.log('req.params: ', req.params);
-  Images.fetchItemImages(req.params.itemId)
-    .then((data) => {
-      if (data) {
-        res.status(200).send({ image: data.itemImages[0].small });
-      } else {
-        res.sendStatus(404);
-      }
-    })
-    .catch((err) => {
-      res.status(500).send(err);
-      console.log(err);
+      // res.status(500).send(err);
+      console.log('error with app.get: ', err);
     })
 })
 
