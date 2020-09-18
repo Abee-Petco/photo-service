@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Gallery from './Gallery.jsx';
-import $ from 'jquery';
-import config from '../../config.js'
 import axios from 'axios'
 
 class App extends React.Component {
