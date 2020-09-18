@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const Images = require('../database-mongo/index.js');
 const cors = require('cors');
+require('newrelic');
 const PORT = 3003;
 
 const app = express();
