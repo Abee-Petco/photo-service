@@ -31,7 +31,7 @@ class Gallery extends React.Component {
         x: e.nativeEvent.offsetX,
         y: e.nativeEvent.offsetY
     });
-    console.log(this.state.currentImage.large)
+    // console.log(this.state.currentImage.large)
   }
 
   handleMouseMove(e){

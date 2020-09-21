@@ -1,5 +1,5 @@
-const insertImages = require('../database-mongodb/insert_images.js');
-const Images = require('../database-mongodb/Images.js');
+const insertImages = require('../database-fec/insert_images.js');
+const Images = require('../database-fec/Images.js');
 const mongoose = require('mongoose');
 const request = require('supertest');
 const app = require('../server/index.js');

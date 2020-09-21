@@ -29,7 +29,7 @@ function insertRecords(records) {
 }
 
 function fetchItemImages(itemId) {
-  console.log('fetchImages invoked')
+  // console.log('fetchImages invoked')
   return Image.find({ 'itemId': Number(itemId) })
 }
 
