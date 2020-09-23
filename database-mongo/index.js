@@ -30,7 +30,7 @@ function insertRecords(records) {
 
 function fetchItemImages(itemId) {
   // console.log('fetchImages invoked')
-  return Image.find({ 'itemId': Number(itemId) })
+  return Image.find({ 'itemId': Number(itemId) }).lean()
 }
 
 function fetchAll() {
@@ -49,7 +49,7 @@ function updateOne(filter, update) {
   return Image.findOneAndUpdate(filter, update)
 }
 
-module.exports = Image;
+module.exports.Image = Image;
 module.exports.insertRecords = insertRecords;
 module.exports.fetchItemImages = fetchItemImages;
 module.exports.fetchAll = fetchAll;

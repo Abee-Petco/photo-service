@@ -1,8 +1,13 @@
 require('newrelic');
 const express = require('express');
 const bodyParser = require('body-parser');
-const Images = require('../database-mongo/index.js');
+const Image = require('../database-mongo/index.js');
 const cors = require('cors');
+const redis = require('redis');
+const client = redis.createClient();
+const RedisServer = require('redis-server');
+
+const server = new RedisServer(6379);
 const PORT = 3003;
 
 const app = express();
@@ -13,9 +18,31 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(__dirname + '/../react-client/dist'));
 
+server.open((err) => {
+  if (err === null) {
+    console.log('redis server working')
+  }
+})
 
-app.get('/images/urls/:itemId', function (req, res) {
-  Images.fetchItemImages(Number(req.params.itemId))
+let redisMiddleware = (req, res, next) => {
+  let key = "__expIress__" + req.originalUrl || req.url;
+  client.get(key, function (err, reply) {
+    if (reply) {
+      res.send(reply);
+    } else {
+      res.sendResponse = res.send;
+      res.send = (body) => {
+        client.set(key, JSON.stringify(body));
+        res.sendResponse(body);
+      }
+      next();
+    }
+  });
+};
+
+
+app.get('/images/urls/:itemId', redisMiddleware, (req, res) => {
+  Image.fetchItemImages(Number(req.params.itemId))
     .then((data) => {
       if (data) {
         res.status(200).send({ data });
