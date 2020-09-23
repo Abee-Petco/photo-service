@@ -21,16 +21,20 @@ const imageSchema = new mongoose.Schema({
   pic2Large: String
 });
 
+
 const Image = mongoose.model('url', imageSchema);
+
 
 function insertRecords(records) {
   // console.log("records:", records);
   return Image.insertMany(records);
+  // Uncomment below and run artillery again to clear the database of dead weight
+  // return Image.deleteMany({ itemId: { $gt: 10000100 } })
 }
 
 function fetchItemImages(itemId) {
   // console.log('fetchImages invoked')
-  return Image.find({ 'itemId': Number(itemId) }).lean()
+  return Image.find({ 'itemId': itemId }).lean().exec()
 }
 
 function fetchAll() {

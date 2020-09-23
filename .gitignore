@@ -6,3 +6,5 @@ sizeUrls.csv
 mongoImages.tsv
 cloudinary.js
 newRelic.js
+newrelic_agent.log
+dump.rdb
