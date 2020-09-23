@@ -25,6 +25,7 @@ const imageSchema = new mongoose.Schema({
 const Image = mongoose.model('url', imageSchema);
 
 
+
 function insertRecords(records) {
   // console.log("records:", records);
   return Image.insertMany(records);
