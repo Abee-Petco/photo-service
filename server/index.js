@@ -40,7 +40,7 @@ let redisMiddleware = (req, res, next) => {
 
 app.get('/images/urls/:itemId', redisMiddleware, (req, res) => {
   // app.get('/images/url/:itemId', redisMiddleware, (req, res) => {
-  db.fetchItemImages(req.params.itemId)
+  db.fetchItemImages(req.params.itemId.toString())
     .then((data) => {
       if (data) {
         client.set(req.params.itemId, JSON.stringify({ data }))
