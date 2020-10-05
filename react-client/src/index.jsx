@@ -12,7 +12,7 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    // console.log('Item id', this.props.itemId)
+    console.log('Item id', this.props.itemId)
     axios.get(`http://127.0.0.1:3003/images/urls/${this.props.itemId}`)
     .then((data) => {
       let picture = data.data.data[0]

@@ -29,9 +29,7 @@ function writeTenMillionPhotoGalleries(writer, encoding, callback) {
       // so only the pictureId is needed and it can be stuck to the end of the image url
       pictureId1 = pictureId
       pictureId2 = pictureId + 1
-      smallPic = true
-      medPic = true
-      largePic = true
+      smallPic = medPic = largePic = true
 
       let data = `${itemId},${pictureId1},${pictureId2},${smallPic},${medPic},${largePic}\n`;
       if (globalCounter === numberOfEntries) {

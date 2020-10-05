@@ -4,7 +4,9 @@ const bodyParser = require('body-parser');
 const db = require('../database-mongo/index.js');
 const cors = require('cors');
 const redis = require('redis');
-const client = redis.createClient();
+const client = redis.createClient({ 'host': 'redis' });
+// Uncomment the 2 lines below when running the service locally
+// const client = redis.createClient();
 // const RedisServer = require('redis-server');
 
 // const server = new RedisServer(6379);
@@ -18,11 +20,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(__dirname + '/../react-client/dist'));
 
-// server.open((err) => {
-//   if (err === null) {
-//     console.log('redis server working')
-//   }
-// })
 
 let redisMiddleware = (req, res, next) => {
   let key = "__expIress__" + req.originalUrl || req.url;

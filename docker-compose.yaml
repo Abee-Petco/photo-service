@@ -2,21 +2,33 @@ version: "3"
 services:
   app:
     container_name: photo-gallery
-    restart: always
+    restart: on-failure
     build: .
     ports:
-      - "3003:3003"
+      - "80:3003"
     links:
-      - mongo
-    # environment:
-    #   MONGO_USERNAME: root
-    #   MONGO_PASSWORD:
+      - "redis"
+      - "mongo"
+    command: bash -c "npm install && npm run start"
+    volumes:
+      - ./wait-for-it.sh:/usr/local/bin/wait-for-it.sh
+      - ./:/Users/williamhudson/Desktop/photo-service
+    environment:
+      - NEW_RELIC_NO_CONFIG_FILE=true
+  redis:
+    container_name: redis
+    image: redis
+    restart: on-failure
+    command: ["redis-server", "--bind", "redis", "--port", "6379"]
+    ports:
+      - "6379:6379"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - ./data:/data
   mongo:
     container_name: mongo
     image: mongo
-    restart: always
-    # environment:
-    #   MONGO_INITDB_ROOT_USERNAME: root
-    #   MONGO_INITDB_ROOT_PASSWORD: 
+    restart: on-failure
     ports:
       - "27017:27017"
