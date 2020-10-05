@@ -16,6 +16,7 @@ class App extends React.Component {
     // axios.get(`http://127.0.0.1:3003/images/urls/${this.props.itemId}`)
     axios.get(`/images/urls/${this.props.itemId}`)
     .then((data) => {
+      console.log('data: ', data)
       let picture = data.data.data[0]
       this.setState({
       itemImages: [{
