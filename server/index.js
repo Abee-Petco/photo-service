@@ -1,4 +1,5 @@
 require('newrelic');
+console.log('checking for changes')
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('../database-mongo/index.js');
