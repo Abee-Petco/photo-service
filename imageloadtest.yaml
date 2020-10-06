@@ -1,0 +1,27 @@
+config:
+  target: 'http://localhost:3003'
+  phases:
+    - duration: 30
+      arrivalRate: 1
+      rampTo: 10
+      name: "Warm up the application"
+    - duration: 120
+      arrivalRate: 10
+      name: "Sustained max load"
+scenarios:
+  - flow:
+    - loop:
+          - post:
+              url: '/images/urls'
+              json:
+                itemId: '{{$randomNumber(100000101, 20000000)}}'
+                pic1Small: "https://res.cloudinary.com/dq3iywusm/image/upload/w_54,h_54/"
+                pic1Med: "https://res.cloudinary.com/dq3iywusm/image/upload/w_400,h_400/"
+                pic1Large: "https://res.cloudinary.com/dq3iywusm/image/upload/w_1000,h_1000/"
+                pic2Small: "https://res.cloudinary.com/dq3iywusm/image/upload/w_54,h_54/"
+                pic2Med: "https://res.cloudinary.com/dq3iywusm/image/upload/w_400,h_400/"
+                pic2Large: "https://res.cloudinary.com/dq3iywusm/image/upload/w_1000,h_1000/"
+          - get:
+          # randomNumber taken from stack overflow article in engineering journal
+              url: '/images/urls/{{$randomNumber(100, 10000100)}}'
+    count: 50

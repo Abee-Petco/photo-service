@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Gallery from './Gallery.jsx';
-import $ from 'jquery';
-import config from '../../config.js'
+import axios from 'axios'
 
 class App extends React.Component {
   constructor(props) {
@@ -13,20 +12,23 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    console.log('Item id', this.props.itemId)
-    $.ajax ({
-      url: config.itemImages + this.props.itemId,
-      type: "get",
-      success: (data) => {
-        console.log('Data returned form the server', data.itemImages);
-        this.setState({
-          itemImages: data.itemImages
-        })
+    // console.log('Item id', this.props.itemId)
+    axios.get(`/images/urls/${this.props.itemId}`)
+    .then((data) => {
+      let picture = data.data.data[0]
+      this.setState({
+      itemImages: [{
+        "small": picture.pic1Small,
+        "medium": picture.pic1Med,
+        "large": picture.pic1Large
       },
-      error: (error) => {
-        console.log(error);
-      }
-    })
+      {
+        "small": picture.pic2Small,
+        "medium": picture.pic2Med,
+        "large": picture.pic2Large
+      }]
+    })})
+    .catch(err => console.log('error with axios get: ', err))
   }
 
   render() {
