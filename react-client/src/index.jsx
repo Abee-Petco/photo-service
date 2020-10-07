@@ -18,6 +18,7 @@ class App extends React.Component {
     .then((data) => {
       console.log('data: ', data)
       let picture = data.data.data[0]
+      console.log('picture: ', picture)
       this.setState({
       itemImages: [{
         "small": picture.pic1Small,
