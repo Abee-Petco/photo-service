@@ -36,7 +36,7 @@ function insertRecords(records) {
 
 function fetchItemImages(itemId) {
   // console.log('fetchImages invoked')
-  return Image.find({ 'itemId': itemId }).lean().exec()
+  return Image.findOne({ 'itemId': itemId }).lean().exec()
 }
 
 function fetchAll() {
