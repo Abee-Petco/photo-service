@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://mongo:27017/images', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://18.217.138.89:27017/images', { useNewUrlParser: true, useUnifiedTopology: true });
 // mongoose.connect('mongodb://localhost/images', { useNewUrlParser: true, useUnifiedTopology: true });
 
 var db = mongoose.connection;
